@@ -4,6 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
+import { useHeader } from "../netflix-provider/header-provider";
 
 interface IButtonMenu {
   link: string;
@@ -15,6 +16,7 @@ interface IHeader {
 }
 
 function Header(props: IHeader) {
+  const { setSearch } = useHeader();
   const [visible, setVisible] = useState<boolean>(true);
 
   const search = () => {
@@ -75,11 +77,19 @@ function Header(props: IHeader) {
               style={{ margin: "0 10px" }}
               onClick={search}
             />
-            <Input placeholder="Titoli, persone, generi" />
+            <Input
+              placeholder="Titoli, persone, generi"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSearch(e?.target.value);
+              }}
+              color={"white"}
+            />
           </HStack>
         )}
         <FontAwesomeIcon icon={faBell} style={{ margin: "0 10px" }} />
-        <Text display={"inline-block"}>{props?.user}</Text>
+        <Text display={"inline-block"} onClick={() => setVisible(true)}>
+          {props?.user}
+        </Text>
       </Box>
     </Box>
   );

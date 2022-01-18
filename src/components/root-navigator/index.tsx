@@ -1,6 +1,8 @@
 import { Box, Button, Heading, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Route, Routes } from "react-router";
+import { useHeader } from "../../netflix-provider/header-provider";
+import Footer from "../footer";
 import Header from "../header";
 import Film from "../routes/film";
 import Home from "../routes/home";
@@ -9,7 +11,7 @@ import NewFilm from "../routes/newFilm";
 import SerieTv from "../routes/serieTv";
 
 function NetflixDash() {
-  const [visible, setVisible] = useState<boolean>(true);
+  const { setVisible, visible } = useHeader();
   const [user, setUser] = useState<string>("");
 
   const account = [{ nome: "Simone Arata" }, { nome: "Luca Nisi" }];
@@ -74,6 +76,8 @@ function NetflixDash() {
           </Routes>
         </Box>
       )}
+
+      {!visible && <Footer />}
     </Box>
   );
 }

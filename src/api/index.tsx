@@ -56,8 +56,6 @@ export function fetchApi<T>(api: string): Promise<T> {
       .then((res) => {
         const result = res.json();
 
-        console.log(result);
-
         if (res.status === 403) {
           reject(result);
         }

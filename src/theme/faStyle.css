@@ -1,0 +1,7 @@
+.faStyle {
+  font-size: 25px;
+}
+
+.faStyle:last-child {
+  margin: 0 25px;
+}
