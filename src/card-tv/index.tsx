@@ -128,7 +128,7 @@ function CardTv() {
 
   return (
     <>
-      {showOver && <OverCard idCard={idCard} features={features} />}
+      <OverCard idCard={idCard} features={features} />
 
       {fetchCall.map((call) => {
         if (!call?.dataFetch) {

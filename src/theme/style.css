@@ -19,10 +19,21 @@
 }
 
 .zoom-box {
-  transform: scale(1.2);
+  transform: scale(1);
+  opacity: 0;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .zoom-boxfirst {
   transform-origin: left;
   transform: scale(1.2);
+}
+
+.zoom-in {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.no-events {
+  pointer-events: none;
 }

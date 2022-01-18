@@ -24,29 +24,6 @@ function Home() {
         setError(true);
       });
   }, []);
-  /* const searchTv = (tv: string) => {
-    return tvpopular?.results?.filter((tv) => {
-      return (
-        <Box
-          m="4px"
-          w={"250px"}
-          h={"140px"}
-          overflow={"hidden"}
-          d={"inline-block"}
-          borderRadius={"5px"}
-        >
-          <Image src={"https://image.tmdb.org/t/p/w342" + tv?.poster_path} />
-        </Box>
-      );
-    });
-  }; */
-
-  /* const searchFilm = (string: string) => {
-    return moviepopular?.results?.filter((movie) => {
-      if (!movie?.title?.includes(string?.toLocaleLowerCase())) return false;
-      return true;
-    });
-  }; */
 
   return (
     <Box w={"100%"} pos={"relative"}>

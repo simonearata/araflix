@@ -19,7 +19,7 @@ interface IOverCard {
 }
 
 function OverCard(props: IOverCard) {
-  const { tvpopular, moviepopular, setShowOver } = useHeader();
+  const { tvpopular, moviepopular, setShowOver, showOver } = useHeader();
   const [error, setError] = useState<boolean>(false);
 
   const caratteristiche: string[] = [
@@ -59,68 +59,72 @@ function OverCard(props: IOverCard) {
   return (
     <>
       {dataItems?.map((items) => {
-        if (!items?.item) {
-          return null;
-        }
         return (
           <>
-            {items?.item.results?.map((result, index) => {
-              if (props?.idCard === result.id) {
-                return (
-                  <Box
-                    position={"absolute"}
-                    w={w}
-                    h={w}
-                    left={left}
-                    top={top - h / 2}
-                    bgColor={"white"}
-                    zIndex={"999"}
-                    borderRadius={"5px"}
-                    className={index === 0 ? "zoom-boxfirst" : "zoom-box"}
-                    onMouseLeave={() => {
-                      setShowOver(false);
-                    }}
-                  >
-                    <Box h={"50%"} overflow={"hidden"} borderRadius={"5px"}>
-                      <Image
-                        src={
-                          "https://image.tmdb.org/t/p/w342" +
-                          result?.poster_path
-                        }
-                        objectFit={"cover"}
-                      />
-                    </Box>
-
+            {items?.item &&
+              items?.item.results?.map((result, index) => {
+                if (props?.idCard === result.id) {
+                  return (
                     <Box
-                      color={"black"}
-                      d={"flex"}
-                      justifyContent={"space-around"}
-                      pt={"20px"}
+                      position={"absolute"}
+                      w={w}
+                      h={w}
+                      left={left}
+                      top={top - h / 2}
+                      bgColor={"white"}
+                      zIndex={"999"}
+                      borderRadius={"5px"}
+                      className={[
+                        "zoom-box",
+                        showOver ? "zoom-in" : "no-events",
+                      ].join(" ")}
+                      onMouseLeave={() => {
+                        setShowOver(false);
+                      }}
                     >
-                      <FontAwesomeIcon
-                        icon={faPlayCircle}
-                        className="faStyle"
-                      />
-                      <FontAwesomeIcon
-                        icon={faPlusCircle}
-                        className="faStyle"
-                      />
-                      <FontAwesomeIcon icon={faThumbsUp} className="faStyle" />
-                      <FontAwesomeIcon
-                        icon={faThumbsDown}
-                        className="faStyle"
-                      />
-                      <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="faStyle"
-                      />
-                    </Box>
+                      <Box h={"50%"} overflow={"hidden"} borderRadius={"5px"}>
+                        <Image
+                          src={
+                            "https://image.tmdb.org/t/p/w342" +
+                            result?.poster_path
+                          }
+                          objectFit={"cover"}
+                        />
+                      </Box>
 
-                    <Box my={"10px"}>{caratteristiche[randomItems]}</Box>
-                  </Box>
-                );
-              }
-            })}
+                      <Box
+                        color={"black"}
+                        d={"flex"}
+                        justifyContent={"space-around"}
+                        pt={"20px"}
+                      >
+                        <FontAwesomeIcon
+                          icon={faPlayCircle}
+                          className="faStyle"
+                        />
+                        <FontAwesomeIcon
+                          icon={faPlusCircle}
+                          className="faStyle"
+                        />
+                        <FontAwesomeIcon
+                          icon={faThumbsUp}
+                          className="faStyle"
+                        />
+                        <FontAwesomeIcon
+                          icon={faThumbsDown}
+                          className="faStyle"
+                        />
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="faStyle"
+                        />
+                      </Box>
+
+                      <Box my={"10px"}>{caratteristiche[randomItems]}</Box>
+                    </Box>
+                  );
+                }
+              })}
           </>
         );
       })}
