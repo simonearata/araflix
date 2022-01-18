@@ -16,11 +16,11 @@ interface IHeader {
 }
 
 function Header(props: IHeader) {
-  const { setSearch } = useHeader();
-  const [visible, setVisible] = useState<boolean>(true);
+  const { setSearch, setVisible, visible } = useHeader();
+  const [visibleSearch, setVisibleSearch] = useState<boolean>(true);
 
   const search = () => {
-    setVisible(!visible);
+    setVisibleSearch(!visibleSearch);
   };
 
   const buttonMenu: IButtonMenu[] = [
@@ -63,14 +63,25 @@ function Header(props: IHeader) {
       </HStack>
 
       <Box lineHeight={"67.99px"} fontSize={"18px"} mx={"30px"}>
-        {visible && (
-          <FontAwesomeIcon
-            icon={faSearch}
-            style={{ margin: "0 10px" }}
-            onClick={search}
-          />
+        {visibleSearch && (
+          <Box>
+            <FontAwesomeIcon
+              icon={faSearch}
+              style={{ margin: "0 10px" }}
+              onClick={search}
+            />
+            <FontAwesomeIcon icon={faBell} style={{ margin: "0 10px" }} />
+            <Text
+              display={"inline-block"}
+              onClick={() => {
+                setVisible(true);
+              }}
+            >
+              {props?.user}
+            </Text>
+          </Box>
         )}
-        {!visible && (
+        {!visibleSearch && (
           <HStack mt={"12px"}>
             <FontAwesomeIcon
               icon={faSearch}
@@ -86,10 +97,6 @@ function Header(props: IHeader) {
             />
           </HStack>
         )}
-        <FontAwesomeIcon icon={faBell} style={{ margin: "0 10px" }} />
-        <Text display={"inline-block"} onClick={() => setVisible(true)}>
-          {props?.user}
-        </Text>
       </Box>
     </Box>
   );

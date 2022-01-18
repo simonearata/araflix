@@ -56,6 +56,9 @@ function OverCard(props: IOverCard) {
     },
   ];
 
+  /*   console.log(top);
+  console.log(left); */
+
   return (
     <>
       {dataItems?.map((items) => {
@@ -77,6 +80,8 @@ function OverCard(props: IOverCard) {
                       className={[
                         "zoom-box",
                         showOver ? "zoom-in" : "no-events",
+                        top < 751 && left < 6 ? "zoom-boxfirst" : "",
+                        /* top > 749 && left > 979 ? "zoom-boxlast" : "", */
                       ].join(" ")}
                       onMouseLeave={() => {
                         setShowOver(false);

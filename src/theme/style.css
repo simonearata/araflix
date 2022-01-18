@@ -26,7 +26,12 @@
 
 .zoom-boxfirst {
   transform-origin: left;
+}
+
+.zoom-boxlast {
+  transform-origin: right;
   transform: scale(1.2);
+  opacity: 1;
 }
 
 .zoom-in {
