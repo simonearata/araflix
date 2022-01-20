@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 import { FC } from "react";
-import { IMovie, ITv } from "../api";
+import { IMovie, IResult, ITv } from "../api";
 
 interface IHeaderProvider {}
 export interface IHeaderContext {
@@ -9,11 +9,13 @@ export interface IHeaderContext {
   setMoviepopular: (movie: IMovie) => void;
   setShowOver: (boolean: boolean) => void;
   setVisible: (boolean: boolean) => void;
+  setListFilm: (IResult: IResult[]) => void;
   search: string;
   tvpopular: ITv | null;
   moviepopular: IMovie | null;
   showOver: boolean;
   visible: boolean;
+  listFilm: IResult[];
 }
 
 const initialContext: IHeaderContext = {
@@ -22,11 +24,13 @@ const initialContext: IHeaderContext = {
   setMoviepopular: () => {},
   setShowOver: () => {},
   setVisible: () => {},
+  setListFilm: () => {},
   search: "",
   tvpopular: null,
   moviepopular: null,
   showOver: false,
   visible: true,
+  listFilm: [],
 };
 
 const HeaderContext = createContext<IHeaderContext>(initialContext);
@@ -36,7 +40,8 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
   const [tvpopular, setTvpopular] = useState<ITv | null>(null);
   const [moviepopular, setMoviepopular] = useState<IMovie | null>(null);
   const [showOver, setShowOver] = useState<boolean>(false);
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [listFilm, setListFilm] = useState<IResult[]>([]);
 
   const HeaderData: IHeaderContext = {
     setSearch,
@@ -44,11 +49,13 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
     setTvpopular,
     setShowOver,
     setVisible,
+    setListFilm,
     search,
     moviepopular,
     tvpopular,
     showOver,
     visible,
+    listFilm,
   };
 
   return (

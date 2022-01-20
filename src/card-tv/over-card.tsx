@@ -1,4 +1,4 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Button, Image } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
@@ -12,6 +12,7 @@ import { IEvent } from ".";
 import "../theme/faStyle.css";
 import "../theme/style.css";
 import { useHeader } from "../netflix-provider/header-provider";
+import { IResult } from "../api";
 
 interface IOverCard {
   idCard: number | undefined;
@@ -19,7 +20,14 @@ interface IOverCard {
 }
 
 function OverCard(props: IOverCard) {
-  const { tvpopular, moviepopular, setShowOver, showOver } = useHeader();
+  const {
+    tvpopular,
+    moviepopular,
+    setShowOver,
+    showOver,
+    setListFilm,
+    listFilm,
+  } = useHeader();
   const [error, setError] = useState<boolean>(false);
 
   const caratteristiche: string[] = [
@@ -56,8 +64,18 @@ function OverCard(props: IOverCard) {
     },
   ];
 
-  /*   console.log(top);
-  console.log(left); */
+  const addList = (id: number) => {
+    let favoriteList = tvpopular?.results?.filter((tv) => {
+      if (id !== tv?.id) {
+        return false;
+      }
+      return true;
+    });
+    console.log(favoriteList, listFilm);
+    if (favoriteList && listFilm) {
+      setListFilm([...listFilm, ...favoriteList]);
+    }
+  };
 
   return (
     <>
@@ -71,7 +89,7 @@ function OverCard(props: IOverCard) {
                     <Box
                       position={"absolute"}
                       w={w}
-                      h={w}
+                      h={h * 2}
                       left={left}
                       top={top - h / 2}
                       bgColor={"white"}
@@ -80,14 +98,15 @@ function OverCard(props: IOverCard) {
                       className={[
                         "zoom-box",
                         showOver ? "zoom-in" : "no-events",
-                        top < 751 && left < 6 ? "zoom-boxfirst" : "",
+                        left < 6 ? "zoom-boxfirst" : "",
+                        /* left > 7 ? "" */
                         /* top > 749 && left > 979 ? "zoom-boxlast" : "", */
                       ].join(" ")}
                       onMouseLeave={() => {
                         setShowOver(false);
                       }}
                     >
-                      <Box h={"50%"} overflow={"hidden"} borderRadius={"5px"}>
+                      <Box h={"50%"} overflow={"hidden"}>
                         <Image
                           src={
                             "https://image.tmdb.org/t/p/w342" +
@@ -107,10 +126,16 @@ function OverCard(props: IOverCard) {
                           icon={faPlayCircle}
                           className="faStyle"
                         />
-                        <FontAwesomeIcon
-                          icon={faPlusCircle}
-                          className="faStyle"
-                        />
+                        <Button
+                          onClick={() => {
+                            addList(result.id);
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faPlusCircle}
+                            className="faStyle"
+                          />
+                        </Button>
                         <FontAwesomeIcon
                           icon={faThumbsUp}
                           className="faStyle"
