@@ -5,6 +5,8 @@ import "react-multi-carousel/lib/styles.css";
 import OverCard from "./over-card";
 import "../theme/style.css";
 import { useHeader } from "../netflix-provider/header-provider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export interface IEvent {
   left: number;
@@ -14,7 +16,7 @@ export interface IEvent {
 }
 
 function CardTv() {
-  const { moviepopular, tvpopular, showOver, setShowOver, search } =
+  const { moviepopular, tvpopular, showOver, setShowOver, search, listFilm } =
     useHeader();
   const [idCard, setIdCard] = useState<number>();
   const [features, setFeatures] = useState<IEvent>();
@@ -53,6 +55,10 @@ function CardTv() {
       dataFetch: moviepopular,
     },
   ];
+
+  const idTv = listFilm?.map((tv) => {
+    return tv.id;
+  });
 
   const filteredFilm = moviepopular?.results?.filter((movie) => {
     return movie?.title?.toLowerCase().includes(search.toLowerCase());
@@ -168,6 +174,12 @@ function CardTv() {
                         });
                       }}
                     >
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        className={
+                          idTv.includes(result.id) ? "visible" : "no-visible"
+                        }
+                      />
                       <Image
                         src={
                           "https://image.tmdb.org/t/p/w342" +

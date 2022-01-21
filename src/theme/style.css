@@ -42,3 +42,13 @@
 .no-events {
   pointer-events: none;
 }
+
+.no-visible {
+  display: none;
+}
+
+.visible {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+}
