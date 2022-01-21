@@ -7,7 +7,7 @@ import {
   faThumbsDown,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IEvent } from ".";
 import "../theme/faStyle.css";
 import "../theme/style.css";

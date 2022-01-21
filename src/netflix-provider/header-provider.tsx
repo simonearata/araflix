@@ -41,7 +41,13 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
   const [moviepopular, setMoviepopular] = useState<IMovie | null>(null);
   const [showOver, setShowOver] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [listFilm, setListFilm] = useState<IResult[]>([]);
+
+  const initialListFilm = localStorage?.getItem("listFilm");
+  const parsedList: IResult[] = initialListFilm
+    ? JSON.parse(initialListFilm)
+    : [];
+
+  const [listFilm, setListFilm] = useState<IResult[]>(parsedList);
 
   const HeaderData: IHeaderContext = {
     setSearch,
