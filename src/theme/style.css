@@ -53,3 +53,15 @@
   left: 2%;
   color: red;
 }
+
+.card-wish {
+  display: inline-block;
+  position: relative;
+  background-color: transparent;
+  height: 140px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 4px;
+}

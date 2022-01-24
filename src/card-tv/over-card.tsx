@@ -7,12 +7,11 @@ import {
   faThumbsDown,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IEvent } from ".";
 import "../theme/faStyle.css";
 import "../theme/style.css";
 import { useHeader } from "../netflix-provider/header-provider";
-import { IResult } from "../api";
 
 interface IOverCard {
   idCard: number | undefined;
@@ -64,6 +63,10 @@ function OverCard(props: IOverCard) {
     },
   ];
 
+  let listTv: number[] = listFilm.map((e) => {
+    return e.id;
+  });
+
   const addList = (id: number) => {
     let favoriteList = tvpopular?.results?.filter((tv) => {
       if (id !== tv?.id) {
@@ -71,8 +74,7 @@ function OverCard(props: IOverCard) {
       }
       return true;
     });
-    console.log(favoriteList, listFilm);
-    if (favoriteList && listFilm) {
+    if (favoriteList && listFilm && !listTv.includes(id)) {
       setListFilm([...listFilm, ...favoriteList]);
     }
   };

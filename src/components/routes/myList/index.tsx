@@ -1,17 +1,28 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
-import { IResult } from "../../../api";
+import React, { useEffect, useState } from "react";
+import CardDetails from "../../../card-tv/card-details";
 import { useHeader } from "../../../netflix-provider/header-provider";
+import "../../../theme/style.css";
 
 function MyList() {
-  const { listFilm, setListFilm } = useHeader();
+  const {
+    listFilm,
+    setListFilm,
+    idDetails,
+    setIdDetails,
+    detailsCard,
+    setDetailsCard,
+  } = useHeader();
 
   useEffect(() => {
     localStorage.setItem("listFilm", JSON.stringify(listFilm));
-    window.scrollTo(0, 0);
   }, [listFilm]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const deleteFilm = (id: number) => {
     let cleanArray = [...listFilm].filter((tv) => {
@@ -23,27 +34,61 @@ function MyList() {
     setListFilm(cleanArray);
   };
 
-  console.log(listFilm);
+  const activeDetails = (id: number) => {
+    setIdDetails(id);
+    setDetailsCard(true);
+  };
+
+  console.log(detailsCard);
 
   return (
-    <Box pt={"68px"} h={"100vh"}>
-      <Box color={"white"}>
-        {listFilm.map((tv) => {
-          return (
-            <Box color={"white"}>
+    <>
+      <Box pt={"68px"} h={"100vh"}>
+        {detailsCard && <CardDetails />}
+        <Box color={"white"}>
+          {listFilm.map((tv) => {
+            return (
+              <Box
+                className="card-wish"
+                onClick={() => {
+                  activeDetails(tv.id);
+                }}
+              >
+                <Box className="">
+                  <Box
+                    className="visible"
+                    onClick={() => {
+                      deleteFilm(tv.id);
+                    }}
+                    d={"inline-block"}
+                  >
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </Box>
+                  <Image
+                    src={"https://image.tmdb.org/t/p/w342" + tv?.poster_path}
+                    objectFit={"cover"}
+                  />
+                </Box>
+              </Box>
+            );
+
+            {
+              /* <Box color={"white"}>
               {tv.name}{" "}
               <Box
                 onClick={() => {
                   deleteFilm(tv.id);
                 }}
+                d={"inline-block"}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
               </Box>
-            </Box>
-          );
-        })}
+            </Box> */
+            }
+          })}
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 

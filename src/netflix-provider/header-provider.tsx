@@ -10,12 +10,16 @@ export interface IHeaderContext {
   setShowOver: (boolean: boolean) => void;
   setVisible: (boolean: boolean) => void;
   setListFilm: (IResult: IResult[]) => void;
+  setIdDetails: (id: number) => void;
+  setDetailsCard: (visibility: boolean) => void;
   search: string;
   tvpopular: ITv | null;
   moviepopular: IMovie | null;
   showOver: boolean;
   visible: boolean;
   listFilm: IResult[];
+  idDetails: number;
+  detailsCard: boolean;
 }
 
 const initialContext: IHeaderContext = {
@@ -25,12 +29,16 @@ const initialContext: IHeaderContext = {
   setShowOver: () => {},
   setVisible: () => {},
   setListFilm: () => {},
+  setIdDetails: () => {},
+  setDetailsCard: () => {},
   search: "",
   tvpopular: null,
   moviepopular: null,
   showOver: false,
   visible: true,
   listFilm: [],
+  idDetails: 0,
+  detailsCard: false,
 };
 
 const HeaderContext = createContext<IHeaderContext>(initialContext);
@@ -41,6 +49,8 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
   const [moviepopular, setMoviepopular] = useState<IMovie | null>(null);
   const [showOver, setShowOver] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
+  const [idDetails, setIdDetails] = useState<number>(0);
+  const [detailsCard, setDetailsCard] = useState<boolean>(false);
 
   const initialListFilm = localStorage?.getItem("listFilm");
   const parsedList: IResult[] = initialListFilm
@@ -56,12 +66,16 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
     setShowOver,
     setVisible,
     setListFilm,
+    setIdDetails,
+    setDetailsCard,
     search,
     moviepopular,
     tvpopular,
     showOver,
     visible,
     listFilm,
+    idDetails,
+    detailsCard,
   };
 
   return (

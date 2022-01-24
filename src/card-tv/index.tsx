@@ -1,5 +1,5 @@
-import { Box, Heading, Image, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Heading, Image } from "@chakra-ui/react";
+import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import OverCard from "./over-card";
