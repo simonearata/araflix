@@ -57,7 +57,8 @@ function MyList() {
                 <Box className="">
                   <Box
                     className="visible"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       deleteFilm(tv.id);
                     }}
                     d={"inline-block"}
