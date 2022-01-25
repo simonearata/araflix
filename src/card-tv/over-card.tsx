@@ -26,6 +26,8 @@ function OverCard(props: IOverCard) {
     showOver,
     setListFilm,
     listFilm,
+    setListMovie,
+    listMovie,
   } = useHeader();
   const [error, setError] = useState<boolean>(false);
 
@@ -67,17 +69,40 @@ function OverCard(props: IOverCard) {
     return e.id;
   });
 
-  const addList = (id: number) => {
-    let favoriteList = tvpopular?.results?.filter((tv) => {
+  let listM: number[] = listMovie.map((e) => {
+    return e.id;
+  });
+
+  const addListTv = (id: number) => {
+    let favoriteListTv = tvpopular?.results?.filter((tv) => {
       if (id !== tv?.id) {
         return false;
       }
       return true;
     });
-    if (favoriteList && listFilm && !listTv.includes(id)) {
-      setListFilm([...listFilm, ...favoriteList]);
+    if (favoriteListTv && listFilm && !listTv.includes(id)) {
+      setListFilm([...listFilm, ...favoriteListTv]);
     }
   };
+
+  const addListMovie = (id: number) => {
+    let favoriteListMovie = moviepopular?.results?.filter((movie) => {
+      if (id !== movie?.id) {
+        return false;
+      }
+      return true;
+    });
+    if (favoriteListMovie && listMovie && !listM.includes(id)) {
+      setListMovie([...listMovie, ...favoriteListMovie]);
+    }
+  };
+
+  const addList = (id: number) => {
+    addListTv(id);
+    addListMovie(id);
+  };
+
+  console.log(listFilm, listMovie);
 
   return (
     <>

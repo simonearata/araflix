@@ -16,7 +16,7 @@ export interface IEvent {
 }
 
 function CardTv() {
-  const { moviepopular, tvpopular, showOver, setShowOver, search, listFilm } =
+  const { moviepopular, tvpopular, listMovie, setShowOver, search, listFilm } =
     useHeader();
   const [idCard, setIdCard] = useState<number>();
   const [features, setFeatures] = useState<IEvent>();
@@ -59,6 +59,12 @@ function CardTv() {
   const idTv = listFilm?.map((tv) => {
     return tv.id;
   });
+
+  const idMovie = listMovie?.map((movie) => {
+    return movie.id;
+  });
+
+  const allId = [...idMovie, ...idTv];
 
   const filteredFilm = moviepopular?.results?.filter((movie) => {
     return movie?.title?.toLowerCase().includes(search.toLowerCase());
@@ -176,9 +182,9 @@ function CardTv() {
                     >
                       <FontAwesomeIcon
                         icon={faHeart}
-                        className={
-                          idTv.includes(result.id) ? "visible" : "no-visible"
-                        }
+                        className={[
+                          allId.includes(result.id) ? "visible" : "no-visible",
+                        ].join(" ")}
                       />
                       <Image
                         src={

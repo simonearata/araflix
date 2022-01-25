@@ -5,13 +5,13 @@ import React from "react";
 import { useHeader } from "../netflix-provider/header-provider";
 
 function CardDetails() {
-  const { tvpopular, idDetails, setDetailsCard, listFilm } = useHeader();
+  const { idDetails, setDetailsCard, listFilm, listMovie } = useHeader();
 
   const disableDetails = () => {
     setDetailsCard(false);
   };
 
-  console.log(idDetails);
+  const unionArray = [...listMovie, ...listFilm];
 
   return (
     <Box
@@ -23,8 +23,8 @@ function CardDetails() {
       left={"10%"}
       right={"10%"}
     >
-      {listFilm?.map((tv) => {
-        if (tv.id == idDetails) {
+      {unionArray?.map((items) => {
+        if (items.id === idDetails) {
           return (
             <Box>
               <Box
@@ -36,8 +36,8 @@ function CardDetails() {
               >
                 <FontAwesomeIcon icon={faWindowClose} />
               </Box>
-              <Box color={"white"}>{tv?.name}</Box>
-              <Box color={"white"}>{tv?.overview}</Box>
+              <Box color={"white"}>{items?.vote_average}</Box>
+              <Box color={"white"}>{items?.overview}</Box>
             </Box>
           );
         }

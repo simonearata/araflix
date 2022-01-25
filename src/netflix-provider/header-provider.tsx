@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 import { FC } from "react";
-import { IMovie, IResult, ITv } from "../api";
+import { IMovie, IResult, IResultMovie, ITrailer, ITv } from "../api";
 
 interface IHeaderProvider {}
 export interface IHeaderContext {
@@ -12,6 +12,8 @@ export interface IHeaderContext {
   setListFilm: (IResult: IResult[]) => void;
   setIdDetails: (id: number) => void;
   setDetailsCard: (visibility: boolean) => void;
+  setListMovie: (IResultMovie: IResultMovie[]) => void;
+  setTrailer: (ITrailer: ITrailer) => void;
   search: string;
   tvpopular: ITv | null;
   moviepopular: IMovie | null;
@@ -20,6 +22,8 @@ export interface IHeaderContext {
   listFilm: IResult[];
   idDetails: number;
   detailsCard: boolean;
+  listMovie: IResultMovie[];
+  trailer: ITrailer | null;
 }
 
 const initialContext: IHeaderContext = {
@@ -31,6 +35,8 @@ const initialContext: IHeaderContext = {
   setListFilm: () => {},
   setIdDetails: () => {},
   setDetailsCard: () => {},
+  setListMovie: () => {},
+  setTrailer: () => {},
   search: "",
   tvpopular: null,
   moviepopular: null,
@@ -39,6 +45,8 @@ const initialContext: IHeaderContext = {
   listFilm: [],
   idDetails: 0,
   detailsCard: false,
+  listMovie: [],
+  trailer: null,
 };
 
 const HeaderContext = createContext<IHeaderContext>(initialContext);
@@ -51,6 +59,7 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [idDetails, setIdDetails] = useState<number>(0);
   const [detailsCard, setDetailsCard] = useState<boolean>(false);
+  const [trailer, setTrailer] = useState<ITrailer | null>(null);
 
   const initialListFilm = localStorage?.getItem("listFilm");
   const parsedList: IResult[] = initialListFilm
@@ -58,6 +67,15 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
     : [];
 
   const [listFilm, setListFilm] = useState<IResult[]>(parsedList);
+
+  const initialListMovie = localStorage?.getItem("listMovie");
+  const parsedListMovie: IResultMovie[] = initialListMovie
+    ? JSON.parse(initialListMovie)
+    : [];
+
+  const [listMovie, setListMovie] = useState<IResultMovie[]>(parsedListMovie);
+
+  const unionArray = [...listMovie, ...listFilm];
 
   const HeaderData: IHeaderContext = {
     setSearch,
@@ -68,6 +86,8 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
     setListFilm,
     setIdDetails,
     setDetailsCard,
+    setListMovie,
+    setTrailer,
     search,
     moviepopular,
     tvpopular,
@@ -76,6 +96,8 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
     listFilm,
     idDetails,
     detailsCard,
+    listMovie,
+    trailer,
   };
 
   return (

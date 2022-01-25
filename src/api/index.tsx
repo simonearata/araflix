@@ -47,6 +47,24 @@ export interface IResult {
   vote_count: number;
 }
 
+export interface ITrailer {
+  id: number;
+  results: IResultTrailer[];
+}
+
+export interface IResultTrailer {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  id: string;
+}
+
 export function fetchApi<T>(api: string): Promise<T> {
   const { dev, qlt, prod } = apiConfig?.environments;
   const url = `${prod?.apiUrl}${api}?api_key=${prod?.apiKey}`;
