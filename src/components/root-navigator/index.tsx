@@ -1,5 +1,5 @@
 import { Box, Button, Heading, Image } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router";
 import { useHeader } from "../../netflix-provider/header-provider";
 import Footer from "../footer";
@@ -11,8 +11,11 @@ import NewFilm from "../routes/newFilm";
 import SerieTv from "../routes/serieTv";
 
 function NetflixDash() {
-  const { setVisible, visible } = useHeader();
-  const [user, setUser] = useState<string>("");
+  const { setVisible, user, setUser } = useHeader();
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  });
 
   const account = [{ nome: "Simone Arata" }, { nome: "Luca Nisi" }];
 
@@ -23,7 +26,7 @@ function NetflixDash() {
 
   return (
     <Box bgColor={"black"}>
-      {visible && (
+      {user === "" && (
         <Box bgColor={"black"} h={"100vh"} position={"relative"}>
           <Box w="80px" p={"5px"}>
             <Image src={"araflix.png"} alt="logo" />
@@ -43,9 +46,10 @@ function NetflixDash() {
             translateX={"-50%"}
             translateY={"-50%"}
           >
-            {account?.map((user) => {
+            {account?.map((user, index) => {
               return (
                 <Button
+                  key={"user" + index}
                   w={"100%"}
                   h={"100%"}
                   mr={"10px"}
@@ -59,9 +63,9 @@ function NetflixDash() {
         </Box>
       )}
 
-      {!visible && <Header user={user} />}
+      {user !== "" && <Header />}
 
-      {!visible && (
+      {user !== "" && (
         <Box>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -77,7 +81,7 @@ function NetflixDash() {
         </Box>
       )}
 
-      {!visible && <Footer />}
+      {user !== "" && <Footer />}
     </Box>
   );
 }

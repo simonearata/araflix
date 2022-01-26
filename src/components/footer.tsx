@@ -1,16 +1,9 @@
 import { Box, HStack, ListItem, UnorderedList } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 function Footer() {
   return (
     <Box mt={"50px"} pb={"50px"}>
-      {/* <Box>
-        <FontAwesomeIcon icon={["fab", "facebook-f"]} />
-        <FontAwesomeIcon icon={["fab", "instagram"]} />
-        <FontAwesomeIcon icon={["fab", "twitter"]} />
-        <FontAwesomeIcon icon={["fab", "youtube"]} />
-      </Box> */}
       <HStack
         justifyContent={"space-between"}
         mx={"auto"}

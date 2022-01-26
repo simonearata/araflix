@@ -14,6 +14,7 @@ export interface IHeaderContext {
   setDetailsCard: (visibility: boolean) => void;
   setListMovie: (IResultMovie: IResultMovie[]) => void;
   setTrailer: (ITrailer: ITrailer) => void;
+  setUser: (Name: string) => void;
   search: string;
   tvpopular: ITv | null;
   moviepopular: IMovie | null;
@@ -24,6 +25,7 @@ export interface IHeaderContext {
   detailsCard: boolean;
   listMovie: IResultMovie[];
   trailer: ITrailer | null;
+  user: string;
 }
 
 const initialContext: IHeaderContext = {
@@ -37,6 +39,7 @@ const initialContext: IHeaderContext = {
   setDetailsCard: () => {},
   setListMovie: () => {},
   setTrailer: () => {},
+  setUser: () => {},
   search: "",
   tvpopular: null,
   moviepopular: null,
@@ -47,6 +50,7 @@ const initialContext: IHeaderContext = {
   detailsCard: false,
   listMovie: [],
   trailer: null,
+  user: "",
 };
 
 const HeaderContext = createContext<IHeaderContext>(initialContext);
@@ -56,7 +60,7 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
   const [tvpopular, setTvpopular] = useState<ITv | null>(null);
   const [moviepopular, setMoviepopular] = useState<IMovie | null>(null);
   const [showOver, setShowOver] = useState<boolean>(false);
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(true);
   const [idDetails, setIdDetails] = useState<number>(0);
   const [detailsCard, setDetailsCard] = useState<boolean>(false);
   const [trailer, setTrailer] = useState<ITrailer | null>(null);
@@ -75,6 +79,10 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
 
   const [listMovie, setListMovie] = useState<IResultMovie[]>(parsedListMovie);
 
+  const initialUser = localStorage?.getItem("user");
+  const parsedUser: string = initialUser ? JSON.parse(initialUser) : "";
+  const [user, setUser] = useState<string>(parsedUser);
+
   const unionArray = [...listMovie, ...listFilm];
 
   const HeaderData: IHeaderContext = {
@@ -88,6 +96,7 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
     setDetailsCard,
     setListMovie,
     setTrailer,
+    setUser,
     search,
     moviepopular,
     tvpopular,
@@ -98,6 +107,7 @@ const HeaderProvider: FC<IHeaderProvider> = (props) => {
     detailsCard,
     listMovie,
     trailer,
+    user,
   };
 
   return (

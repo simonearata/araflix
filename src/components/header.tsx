@@ -11,12 +11,8 @@ interface IButtonMenu {
   name: string;
 }
 
-interface IHeader {
-  user: string;
-}
-
-function Header(props: IHeader) {
-  const { setSearch, setVisible, visible } = useHeader();
+function Header() {
+  const { setSearch, setVisible, user, setUser } = useHeader();
   const [visibleSearch, setVisibleSearch] = useState<boolean>(true);
 
   const search = () => {
@@ -30,6 +26,11 @@ function Header(props: IHeader) {
     { link: "/mylist", name: "La mia lista" },
   ];
 
+  const changeUser = () => {
+    setUser("");
+    setVisible(true);
+  };
+
   return (
     <Box
       h="68px"
@@ -39,7 +40,7 @@ function Header(props: IHeader) {
       position={"fixed"}
       w={"100%"}
       justifyContent={"space-between"}
-      zIndex={"999"}
+      zIndex={"9919"}
     >
       <HStack>
         <Box w="80px" mx={"25px"}>
@@ -51,9 +52,9 @@ function Header(props: IHeader) {
           </Button>
         </Link>
 
-        {buttonMenu.map((button) => {
+        {buttonMenu.map((button, index) => {
           return (
-            <Link to={button?.link}>
+            <Link to={button?.link} key={"link" + index}>
               <Button variant="button-menu" fontSize={"12"} px={"4px"}>
                 {button?.name}
               </Button>
@@ -74,13 +75,14 @@ function Header(props: IHeader) {
             <Text
               display={"inline-block"}
               onClick={() => {
-                setVisible(true);
+                changeUser();
               }}
             >
-              {props?.user}
+              {user}
             </Text>
           </Box>
         )}
+
         {!visibleSearch && (
           <HStack mt={"12px"}>
             <FontAwesomeIcon

@@ -89,9 +89,10 @@ function CardTv() {
             film cercati
           </Heading>
 
-          {filteredFilm?.map((film) => {
+          {filteredFilm?.map((film, index) => {
             return (
               <Box
+                key={"film" + index}
                 m="4px"
                 w={"250px"}
                 h={"140px"}
@@ -118,9 +119,10 @@ function CardTv() {
             tv cercate
           </Heading>
 
-          {filteredTv?.map((tv) => {
+          {filteredTv?.map((tv, index) => {
             return (
               <Box
+                key={"tv" + index}
                 m="4px"
                 w={"250px"}
                 h={"140px"}
@@ -142,12 +144,17 @@ function CardTv() {
     <>
       <OverCard idCard={idCard} features={features} />
 
-      {fetchCall.map((call) => {
+      {fetchCall.map((call, index) => {
         if (!call?.dataFetch) {
           return null;
         }
         return (
-          <Box overflowX={"auto"} position={"relative"} textAlign={"left"}>
+          <Box
+            key={"call" + index}
+            overflowX={"auto"}
+            position={"relative"}
+            textAlign={"left"}
+          >
             <Heading
               as="h3"
               size="md"
@@ -163,7 +170,7 @@ function CardTv() {
             <Carousel responsive={responsive}>
               {call?.dataFetch?.results?.map((result, index) => {
                 return (
-                  <Box className="flip-card">
+                  <Box key={"result" + index} className="flip-card">
                     <Box
                       className="flip-card-inner"
                       onMouseEnter={(e) => {

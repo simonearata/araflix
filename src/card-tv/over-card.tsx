@@ -104,7 +104,7 @@ function OverCard(props: IOverCard) {
 
   return (
     <>
-      {dataItems?.map((items) => {
+      {dataItems?.map((items, index) => {
         return (
           <>
             {items?.item &&
@@ -112,6 +112,7 @@ function OverCard(props: IOverCard) {
                 if (props?.idCard === result.id) {
                   return (
                     <Box
+                      key={"tv" + index}
                       position={"absolute"}
                       w={w}
                       h={h * 2}
