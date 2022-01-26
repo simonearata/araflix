@@ -1,17 +1,42 @@
-import { Box } from "@chakra-ui/react";
+import { AspectRatio, Box } from "@chakra-ui/react";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchApi, ITrailer } from "../api";
 import { useHeader } from "../netflix-provider/header-provider";
 
 function CardDetails() {
-  const { idDetails, setDetailsCard, listFilm, listMovie } = useHeader();
+  const {
+    idDetails,
+    setDetailsCard,
+    listFilm,
+    listMovie,
+    setTrailer,
+    trailer,
+  } = useHeader();
+  const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchApi<ITrailer>("movie/" + `${idDetails}` + "/videos")
+      .then((data) => {
+        setTrailer(data);
+      })
+      .catch((err) => {
+        setError(true);
+      });
+  }, []);
 
   const disableDetails = () => {
     setDetailsCard(false);
   };
 
   const unionArray = [...listMovie, ...listFilm];
+
+  const firstTrailer = trailer?.results.map((e, index) => {
+    if (index === 0) {
+      return e.key;
+    }
+  });
 
   return (
     <Box
@@ -42,6 +67,13 @@ function CardDetails() {
           );
         }
       })}
+      <Box>
+        <iframe
+          width="560"
+          height="315"
+          src={"https://www.youtube.com/watch?v=" + firstTrailer}
+        ></iframe>
+      </Box>
     </Box>
   );
 }

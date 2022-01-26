@@ -1,4 +1,5 @@
-import { Box, Image } from "@chakra-ui/react";
+import { AspectRatio, Box, Image } from "@chakra-ui/react";
+import { dataAttr } from "@chakra-ui/utils";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -24,10 +25,11 @@ function MyList() {
     setDetailsCard,
     listMovie,
     setListMovie,
+    setTrailer,
+    trailer,
   } = useHeader();
 
   useEffect(() => {
-    fetchApi<ITrailer>("");
     localStorage.setItem("listFilm", JSON.stringify(listFilm));
     localStorage.setItem("listMovie", JSON.stringify(listMovie));
   }, [listFilm, listMovie]);
@@ -58,7 +60,9 @@ function MyList() {
     setDetailsCard(true);
   };
 
-  const unionArray = [...listMovie, ...listFilm];
+  console.log(trailer);
+
+  /* const unionArray = [...listMovie, ...listFilm]; */
 
   let union: IMovieData[] = [];
 

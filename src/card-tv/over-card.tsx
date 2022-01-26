@@ -102,8 +102,6 @@ function OverCard(props: IOverCard) {
     addListMovie(id);
   };
 
-  console.log(listFilm, listMovie);
-
   return (
     <>
       {dataItems?.map((items) => {
