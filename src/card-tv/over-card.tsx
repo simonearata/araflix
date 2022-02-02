@@ -106,7 +106,7 @@ function OverCard(props: IOverCard) {
     <>
       {dataItems?.map((items, index) => {
         return (
-          <>
+          <React.Fragment key={"items" + index}>
             {items?.item &&
               items?.item.results?.map((result, index) => {
                 if (props?.idCard === result.id) {
@@ -181,7 +181,7 @@ function OverCard(props: IOverCard) {
                   );
                 }
               })}
-          </>
+          </React.Fragment>
         );
       })}
     </>
